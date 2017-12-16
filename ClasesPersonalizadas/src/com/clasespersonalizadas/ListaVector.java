@@ -79,6 +79,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @return un vector que contiene todos los elementos en esta lista en la
      * secuencia correcta
      */
+    @Override
     public Object[] aVector() {
         return this.listadoElementos.toArray();
     }
@@ -102,6 +103,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * nuevo vector del mismo tipo de tiempo de ejecución para este fin
      * @return un vector que contiene los elementos de la lista
      */
+    @Override
     public <T> T[] aVector(T[] vector) {
         return this.listadoElementos.toArray(vector);
     }
@@ -112,6 +114,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @param elemento que se adjuntará a esta lista
      * @return verdadero (como se especifica por Collection.add(E))
      */
+    @Override
     public boolean agregar(E elemento) {
         return this.listadoElementos.add(elemento);
     }
@@ -124,6 +127,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @param indice índice en el que se debe insertar el elemento especificado
      * @param elemento elemento a insertar
      */
+    @Override
     public void agregar(int indice, E elemento) {
         this.listadoElementos.add(indice, elemento);
     }
@@ -141,6 +145,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * lista
      * @return verdadero si esta lista cambió como resultado de la llamada
      */
+    @Override
     public boolean agregarTodo(Collection<? extends E> coleccion) {
         return this.listadoElementos.addAll(coleccion);
     }
@@ -158,6 +163,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * lista
      * @return verdadero si esta lista cambió como resultado de la llamada
      */
+    @Override
     public boolean agregarTodo(int indice, Collection<? extends E> coleccion) {
         return this.listadoElementos.addAll(indice, coleccion);
     }
@@ -178,6 +184,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      *
      * @return un clon de esta instancia de ListaVector
      */
+    @Override
     public Object clonar() {
         return this.listadoElementos.clone();
     }
@@ -195,6 +202,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      *
      * @return el valor del código hash para esta lista
      */
+    @Override
     public int codigoHash() {
         return this.listadoElementos.hashCode();
     }
@@ -208,6 +216,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * esta lista
      * @return verdadero si esta lista cambió como resultado de la llamada
      */
+    @Override
     public boolean conservarTodo(Collection<?> coleccion) {
         return this.listadoElementos.retainAll(coleccion);
     }
@@ -221,6 +230,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @param objeto elemento cuya presencia en esta lista debe probarse
      * @return verdadero si esta lista contiene el elemento especificado
      */
+    @Override
     public boolean contiene(Object objeto) {
         return this.listadoElementos.contains(objeto);
     }
@@ -234,6 +244,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @return verdadero si esta lista contiene todos los elementos de la
      * colección especificada
      */
+    @Override
     public boolean contieneTodo(Collection<?> coleccion) {
         return this.listadoElementos.containsAll(coleccion);
     }
@@ -243,6 +254,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      *
      * @return verdadero si esta lista no contiene elementos
      */
+    @Override
     public boolean estaVacia() {
         return this.listadoElementos.isEmpty();
     }
@@ -255,6 +267,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @param elemento elemento que se almacenará en la posición especificada
      * @return el elemento previamente en la posición especificada
      */
+    @Override
     public E establecer(int indice, E elemento) {
         return this.listadoElementos.set(indice, elemento);
     }
@@ -273,6 +286,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * lista
      * @return verdadero si el objeto especificado es igual a esta lista
      */
+    @Override
     public boolean igual(Object objeto) {
         return this.listadoElementos.equals(objeto);
     }
@@ -287,6 +301,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @return el índice de la primera aparición del elemento especificado en
      * esta lista, o -1 si esta lista no contiene el elemento
      */
+    @Override
     public int indiceDe(Object objeto) {
         return this.listadoElementos.indexOf(objeto);
     }
@@ -298,6 +313,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @return un iterador sobre los elementos en esta lista en la secuencia
      * correcta
      */
+    @Override
     public Iterator<E> iterador() {
         return this.listadoElementos.iterator();
     }
@@ -309,6 +325,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @return un iterador de lista sobre los elementos en esta lista (en la
      * secuencia correcta)
      */
+    @Override
     public ListIterator<E> iteradorLista() {
         return this.listadoElementos.listIterator();
     }
@@ -326,6 +343,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @return un iterador de lista sobre los elementos en esta lista (en la
      * secuencia correcta), comenzando en la posición especificada en la lista
      */
+    @Override
     public ListIterator<E> iteradorLista(int indice) {
         return this.listadoElementos.listIterator(indice);
     }
@@ -338,6 +356,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      *
      * @return un IteradrorSpl los elementos en esta lista
      */
+    @Override
     public Spliterator<E> iteradorSpl() {
         return this.listadoElementos.spliterator();
     }
@@ -345,6 +364,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     /**
      * Elimina todos los elementos de esta lista.
      */
+    @Override
     public void limpiar() {
         this.listadoElementos.clear();
     }
@@ -356,6 +376,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @param indice índice del elemento a devolver
      * @return el elemento en la posición especificada en esta lista
      */
+    @Override
     public E obtener(int indice) {
         return this.listadoElementos.get(indice);
     }
@@ -375,6 +396,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @param comparador el Comparador usado para comparar elementos de lista.
      * Un valor nulo indica que se debe usar el orden natural de los elementos
      */
+    @Override
     public void ordenar(Comparator<? super E> comparador) {
         this.listadoElementos.sort(comparador);
     }
@@ -405,6 +427,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      *
      * @param operador el operador para aplicar a cada elemento
      */
+    @Override
     public void reemplazarTodo(UnaryOperator<E> operador) {
         this.listadoElementos.replaceAll(operador);
     }
@@ -416,6 +439,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @param indice el índice del elemento a eliminar
      * @return el elemento que se eliminó de la lista
      */
+    @Override
     public E remover(int indice) {
         return this.listadoElementos.remove(indice);
     }
@@ -432,6 +456,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @param objeto elemento que se eliminará de esta lista, si está presente
      * @return verdadero si esta lista contiene el elemento especificado
      */
+    @Override
     public boolean remover(Object objeto) {
         return this.listadoElementos.remove(objeto);
     }
@@ -458,6 +483,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * lista
      * @return verdadero si esta lista cambió como resultado de la llamada
      */
+    @Override
     public boolean removerTodo(Collection<?> coleccion) {
         return this.listadoElementos.removeAll(coleccion);
     }
@@ -493,6 +519,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @param hastaIndice punto final alto (exclusivo) de la sublista
      * @return una vista del rango especificado dentro de esta lista
      */
+    @Override
     public List<E> subLista(int desdeIndice, int hastaIndice) {
         return this.listadoElementos.subList(hastaIndice, hastaIndice);
     }
@@ -502,6 +529,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      *
      * @return la cantidad de elementos en esta lista
      */
+    @Override
     public int tamanio() {
         return this.listadoElementos.size();
     }
@@ -516,6 +544,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @return el índice de la última aparición del elemento especificado en
      * esta lista, o -1 si esta lista no contiene el elemento
      */
+    @Override
     public int ultimoIndiceDe(Object objeto) {
         return this.listadoElementos.lastIndexOf(objeto);
     }

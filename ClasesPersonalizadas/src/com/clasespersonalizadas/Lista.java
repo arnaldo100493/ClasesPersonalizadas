@@ -130,6 +130,14 @@ public interface Lista<E> {
      * @return verdadero si esta lista cambió como resultado de la llamada
      */
     public boolean agregarTodo(int indice, Collection<? extends E> coleccion);
+    
+     /**
+     * Devuelve una copia superficial de esta Lista. (Los elementos en sí
+     * mismos no están clonados).
+     *
+     * @return una copia superficial de esta Lista.
+     */
+    public Object clonar();
 
     /**
      * Devuelve el valor del código hash para esta lista. El código hash de una
