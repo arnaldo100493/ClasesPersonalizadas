@@ -192,7 +192,7 @@ public class ListaEnlazada<E> implements Lista<E>, Serializable {
      * Apila un elemento sobre la pila representada por esta lista. En otras
      * palabras, inserta el elemento al principio de esta lista.
      *
-     * @param elemento el elemento para empujar
+     * @param elemento el elemento para apilar
      */
     public void apilar(E elemento) {
         this.listadoElementos.push(elemento);
