@@ -26,9 +26,9 @@ import java.util.function.UnaryOperator;
  *
  * @param <E> el tipo de elementos contenidos en esta colección
  */
-public class ListaVector<E> implements Lista<E>, Serializable {
+public class ListaArreglo<E> implements Lista<E>, Serializable {
 
-    //Atributos de la clase ListaVector.
+    //Atributos de la clase ListaArreglo.
     private static final long serialVersionUID = -9197923298771470206L;
 
     /**
@@ -36,11 +36,11 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      */
     private final ArrayList<E> listadoElementos;
 
-    //Constructores de la clase ListaVector.
+    //Constructores de la clase ListaArreglo.
     /**
      * Construye una lista vacía con una capacidad inicial de diez elementos.
      */
-    public ListaVector() {
+    public ListaArreglo() {
         this.listadoElementos = new ArrayList<>();
     }
 
@@ -52,7 +52,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * @param coleccion la coleccion cuyos elementos deben ser colocados en esta
      * lista
      */
-    public ListaVector(Collection<? extends E> coleccion) {
+    public ListaArreglo(Collection<? extends E> coleccion) {
         this.listadoElementos = new ArrayList<>(coleccion);
     }
 
@@ -61,11 +61,11 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      *
      * @param capacidadInicial la capacidad inicial de la lista
      */
-    public ListaVector(int capacidadInicial) {
+    public ListaArreglo(int capacidadInicial) {
         this.listadoElementos = new ArrayList<>(capacidadInicial);
     }
 
-    //Métodos de la clase ListaVector.
+    //Métodos de la clase ListaArreglo.
     /**
      * Devuelve un vector que contiene todos los elementos de esta lista en la
      * secuencia correcta (del primer al último elemento). El vector devuelta
@@ -169,9 +169,9 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Aumenta la capacidad de esta instancia de ListaVector , si es necesario,
-     * para garantizar que pueda contener al menos la cantidad de elementos
-     * especificada por el argumento de capacidad mínima.
+     * Aumenta la capacidad de esta instancia de ListaArreglo , si es necesario,
+ para garantizar que pueda contener al menos la cantidad de elementos
+ especificada por el argumento de capacidad mínima.
      *
      * @param capacidadMinicma la capacidad mínima deseada
      */
@@ -180,9 +180,9 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Devuelve una copia superficial de esta instancia de ListaVector.
+     * Devuelve una copia superficial de esta instancia de ListaArreglo.
      *
-     * @return un clon de esta instancia de ListaVector
+     * @return un clon de esta instancia de ListaArreglo
      */
     @Override
     public Object clonar() {
@@ -412,9 +412,9 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Recorta la capacidad de esta instancia de ListaVector para ser el tamaño
-     * actual de la lista Una aplicación puede usar esta operación para
-     * minimizar el almacenamiento de una instancia de ListaVector.
+     * Recorta la capacidad de esta instancia de ListaArreglo para ser el tamaño
+ actual de la lista Una aplicación puede usar esta operación para
+ minimizar el almacenamiento de una instancia de ListaArreglo.
      */
     public void recortarATamanio() {
         this.listadoElementos.trimToSize();

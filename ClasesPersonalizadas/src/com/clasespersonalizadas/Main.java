@@ -20,7 +20,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        ListaVector<String> listaVector = new ListaVector<>();
+        ListaArreglo<String> listaVector = new ListaArreglo<>();
         ListaEnlazada<String> listaEnlazada = new ListaEnlazada<>();
     }
 
