@@ -1,4 +1,4 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -26,52 +26,52 @@ public interface Lista<E> {
 
     //Métodos de la interfaz Lista
     /**
-     * Devuelve un vector que contiene todos los elementos de esta lista en la
-     * secuencia correcta (del primer al último elemento). El vector devuelta
+     * Devuelve un arreglo que contiene todos los elementos de esta lista en la
+     * secuencia correcta (del primer al último elemento). El arreglo devuelta
      * será "seguro" ya que esta lista no mantiene ninguna referencia a ella.
      * (En otras palabras, este método debe asignar una nueva matriz). La
      * persona que llama es libre de modificar el vector devuelta.
      *
-     * Este método actúa como puente entre las API basadas en vectores y basadas
-     * en vectores.
+     * Este método actúa como puente entre las API basadas en arreglos y basados
+     * en arreglos.
      *
-     * @return un vector que contiene todos los elementos en esta lista en la
+     * @return un arreglo que contiene todos los elementos en esta lista en la
      * secuencia correcta
      */
-    public Object[] aVector();
+    public Object[] aArreglo();
 
     /**
-     * Devuelve un vector que contiene todos los elementos de esta lista en la
+     * Devuelve un arreglo que contiene todos los elementos de esta lista en la
      * secuencia correcta (del primer al último elemento); el tipo de tiempo de
-     * ejecución de la matriz devuelta es el del vector especificado. Si la
-     * lista se ajusta al vector especificado, se devuelve allí. De lo
-     * contrario, se asigna un nuevo vector con el tipo de tiempo de ejecución
-     * del vector especificado y el tamaño de esta lista. Si la lista cabe en el
-     * vector especificado con espacio de sobra (es decir, el vector tiene más
-     * elementos que la lista), el elemento en el vector inmediatamente después
-     * del final de la colección se establece en nulo . (Esto es útil para
-     * determinar la longitud de la lista solo si la persona que llama sabe que
-     * la lista no contiene ningún elemento nulo). Al igual que el
-     * aVector()método, este método actúa como puente entre las API basadas en
+     * ejecución de la arreglo devuelta es el del arreglo especificado. Si la
+     * lista se ajusta al arreglo especificado, se devuelve allí. De lo
+     * contrario, se asigna un nuevo arreglo con el tipo de tiempo de ejecución
+     * del arreglo especificado y el tamaño de esta lista. Si la lista cabe en
+     * el arreglo especificado con espacio de sobra (es decir, el arreglo tiene
+     * más elementos que la lista), el elemento en el arreglo inmediatamente
+     * después del final de la colección se establece en nulo . (Esto es útil
+     * para determinar la longitud de la lista solo si la persona que llama sabe
+     * que la lista no contiene ningún elemento nulo). Al igual que el
+     * aArreglo()método, este método actúa como puente entre las API basadas en
      * matrices y las basadas en colecciones. Además, este método permite un
-     * control preciso sobre el tipo de tiempo de ejecución de la matriz de
+     * control preciso sobre el tipo de tiempo de ejecución del arreglo de
      * salida y, en determinadas circunstancias, puede utilizarse para ahorrar
      * costos de asignación.
      *
-     * Supongamos que xse sabe que una lista solo contiene cadenas. El siguiente
-     * código se puede usar para volcar la lista en una matriz recién asignada
-     * de String:
+     * Supongamos que x se sabe que una lista solo contiene cadenas. El
+     * siguiente código se puede usar para volcar la lista en un arreglo recién
+     * asignado de String:
      *
-     * String [] y = x.aVector (new String [0]); Tenga en cuenta que aVector(new
-     * Object[0])es idéntica en función a aVector().
+     * String [] y = x.aArreglo (new String [0]); Tenga en cuenta que
+     * aArreglo(new Object[0])es idéntica en función a aArreglo().
      *
      * @param <T> el tipo de elementos contenidos en este vector
-     * @param vector el vector en la que se almacenarán los elementos de la
+     * @param arreglo el arreglo en la que se almacenarán los elementos de la
      * lista, si es lo suficientemente grande; de lo contrario, se asigna un
-     * nuevo vector del mismo tipo de tiempo de ejecución para este fin
-     * @return un vector que contiene los elementos de la lista
+     * nuevo arreglo del mismo tipo de tiempo de ejecución para este fin
+     * @return un arreglo que contiene los elementos de la lista
      */
-    public <T> T[] aVector(T[] vector);
+    public <T> T[] aArreglo(T[] arreglo);
 
     /**
      * Agrega el elemento especificado al final de esta lista (operación
@@ -130,10 +130,10 @@ public interface Lista<E> {
      * @return verdadero si esta lista cambió como resultado de la llamada
      */
     public boolean agregarTodo(int indice, Collection<? extends E> coleccion);
-    
-     /**
-     * Devuelve una copia superficial de esta Lista. (Los elementos en sí
-     * mismos no están clonados).
+
+    /**
+     * Devuelve una copia superficial de esta Lista. (Los elementos en sí mismos
+     * no están clonados).
      *
      * @return una copia superficial de esta Lista.
      */

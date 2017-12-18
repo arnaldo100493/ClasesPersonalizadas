@@ -22,7 +22,7 @@ import java.util.function.UnaryOperator;
  * @author FABAME
  */
 /**
- * Clase para guardar y manipular elementos en una lista de vector.
+ * Clase para guardar y manipular elementos en una lista de arreglo.
  *
  * @param <E> el tipo de elementos contenidos en esta colección
  */
@@ -32,7 +32,7 @@ public class ListaArreglo<E> implements Lista<E>, Serializable {
     private static final long serialVersionUID = -9197923298771470206L;
 
     /**
-     * Listado de elementos en una lista de vector.
+     * Listado de elementos en una lista de arreglo.
      */
     private final ArrayList<E> listadoElementos;
 
@@ -67,45 +67,45 @@ public class ListaArreglo<E> implements Lista<E>, Serializable {
 
     //Métodos de la clase ListaArreglo.
     /**
-     * Devuelve un vector que contiene todos los elementos de esta lista en la
-     * secuencia correcta (del primer al último elemento). El vector devuelta
+     * Devuelve un arreglo que contiene todos los elementos de esta lista en la
+     * secuencia correcta (del primer al último elemento). El arreglo devuelta
      * será "seguro" ya que esta lista no mantiene ninguna referencia a ella.
-     * (En otras palabras, este método debe asignar una nueva matriz). La
-     * persona que llama es libre de modificar el vector devuelta.
+     * (En otras palabras, este método debe asignar un nuevo arreglo). La
+     * persona que llama es libre de modificar el arreglo devuelta.
      *
-     * Este método actúa como puente entre las API basadas en vectores y basadas
-     * en vectores.
+     * Este método actúa como puente entre las API basadas en arreglos y basadas
+     * en arreglos.
      *
-     * @return un vector que contiene todos los elementos en esta lista en la
+     * @return un arreglo que contiene todos los elementos en esta lista en la
      * secuencia correcta
      */
     @Override
-    public Object[] aVector() {
+    public Object[] aArreglo() {
         return this.listadoElementos.toArray();
     }
 
     /**
-     * Devuelve un vector que contiene todos los elementos de esta lista en la
+     * Devuelve un arreglo que contiene todos los elementos de esta lista en la
      * secuencia correcta (del primer al último elemento); el tipo de tiempo de
-     * ejecución de la matriz devuelta es el del vector especificado. Si la
-     * lista se ajusta al vector especificado, se devuelve allí. De lo
-     * contrario, se asigna un nuevo vector con el tipo de tiempo de ejecución
-     * del vector especificado y el tamaño de esta lista. Si la lista cabe en el
-     * vector especificado con espacio de sobra (es decir, el vector tiene más
-     * elementos que la lista), el elemento en el vector inmediatamente después
-     * del final de la colección se establece en nulo . (Esto es útil para
-     * determinar la longitud de la lista solo si la persona que llama sabe que
-     * la lista no contiene ningún elemento nulo).
+     * ejecución de la arreglo devuelta es el del arreglo especificado. Si la
+     * lista se ajusta al arreglo especificado, se devuelve allí. De lo
+     * contrario, se asigna un nuevo arreglo con el tipo de tiempo de ejecución
+     * del arreglo especificado y el tamaño de esta lista. Si la lista cabe en
+     * el arreglo especificado con espacio de sobra (es decir, el arreglo tiene
+     * más elementos que la lista), el elemento en el arreglo inmediatamente
+     * después del final de la colección se establece en nulo . (Esto es útil
+     * para determinar la longitud de la lista solo si la persona que llama sabe
+     * que la lista no contiene ningún elemento nulo).
      *
-     * @param <T> el tipo de elementos contenidos en este vector
-     * @param vector el vector en la que se almacenarán los elementos de la
+     * @param <T> el tipo de elementos contenidos en este arreglo
+     * @param arreglo el arreglo en la que se almacenarán los elementos de la
      * lista, si es lo suficientemente grande; de lo contrario, se asigna un
-     * nuevo vector del mismo tipo de tiempo de ejecución para este fin
-     * @return un vector que contiene los elementos de la lista
+     * nuevo arreglo del mismo tipo de tiempo de ejecución para este fin
+     * @return un arreglo que contiene los elementos de la lista
      */
     @Override
-    public <T> T[] aVector(T[] vector) {
-        return this.listadoElementos.toArray(vector);
+    public <T> T[] aArreglo(T[] arreglo) {
+        return this.listadoElementos.toArray(arreglo);
     }
 
     /**
@@ -170,8 +170,8 @@ public class ListaArreglo<E> implements Lista<E>, Serializable {
 
     /**
      * Aumenta la capacidad de esta instancia de ListaArreglo , si es necesario,
- para garantizar que pueda contener al menos la cantidad de elementos
- especificada por el argumento de capacidad mínima.
+     * para garantizar que pueda contener al menos la cantidad de elementos
+     * especificada por el argumento de capacidad mínima.
      *
      * @param capacidadMinicma la capacidad mínima deseada
      */
@@ -413,8 +413,8 @@ public class ListaArreglo<E> implements Lista<E>, Serializable {
 
     /**
      * Recorta la capacidad de esta instancia de ListaArreglo para ser el tamaño
- actual de la lista Una aplicación puede usar esta operación para
- minimizar el almacenamiento de una instancia de ListaArreglo.
+     * actual de la lista Una aplicación puede usar esta operación para
+     * minimizar el almacenamiento de una instancia de ListaArreglo.
      */
     public void recortarATamanio() {
         this.listadoElementos.trimToSize();
