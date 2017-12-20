@@ -722,7 +722,7 @@ public class ListaEnlazada<E> implements Lista<E>, Serializable {
      */
     @Override
     public List<E> subLista(int desdeIndice, int hastaIndice) {
-        return this.listadoElementos.subList(hastaIndice, hastaIndice);
+        return this.listadoElementos.subList(desdeIndice, hastaIndice);
     }
 
     /**
