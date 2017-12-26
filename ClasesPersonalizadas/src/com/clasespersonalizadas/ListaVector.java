@@ -23,7 +23,7 @@ import java.util.function.UnaryOperator;
  * @author FABAME
  */
 /**
- * Clase para guardar y manipular componentes en una lista vector.
+ * Clase para guardar y manipular componentes en una lista de vector.
  *
  * @param <E> el tipo de elementos contenidos en esta colección
  */
