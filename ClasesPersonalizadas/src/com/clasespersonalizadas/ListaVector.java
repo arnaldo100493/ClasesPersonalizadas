@@ -33,7 +33,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     private static final long serialVersionUID = 5663581639854647775L;
 
     /**
-     * Listado de elementos en una lista vector.
+     * Listado de elementos en una lista de vector.
      */
     private final Vector<E> listadoElementos;
 
