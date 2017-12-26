@@ -8,39 +8,84 @@ package com.clasespersonalizadas;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Spliterator;
 import java.util.Vector;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 
 /**
  *
  * @author FABAME
  */
+/**
+ * Clase para guardar y manipular componentes en una lista vector.
+ *
+ * @param <E> el tipo de elementos contenidos en esta colección
+ */
 public class ListaVector<E> implements Lista<E>, Serializable {
 
+    //Atributos de la clase ListaVector.
     private static final long serialVersionUID = 5663581639854647775L;
 
+    /**
+     * Listado de elementos en una lista vector.
+     */
     private final Vector<E> listadoElementos;
 
+    //Constructores de la clase ListaVector.
+    /**
+     * Construye un vector vacío para que su arreglo de datos internos tenga
+     * tamaño 10 y su incremento de capacidad estándar sea cero.
+     */
     public ListaVector() {
         this.listadoElementos = new Vector<>();
     }
 
     /**
-     * Devuelve un arreglo que contiene todos los elementos de esta lista en la
-     * secuencia correcta (del primer al último elemento). El arreglo devuelta
-     * será "seguro" ya que esta lista no mantiene ninguna referencia a ella.
-     * (En otras palabras, este método debe asignar una nueva matriz). La
-     * persona que llama es libre de modificar el vector devuelta.
+     * Construye un vector vacío con la capacidad inicial especificada y con su
+     * incremento de capacidad igual a cero.
      *
-     * Este método actúa como puente entre las API basadas en arreglos y basados
-     * en arreglos.
+     * @param capacidadInicial la capacidad inicial del vector
+     */
+    public ListaVector(int capacidadInicial) {
+        this.listadoElementos = new Vector<>(capacidadInicial);
+    }
+
+    /**
+     * Construye un vector vacío con la capacidad inicial especificada y el
+     * incremento de capacidad.
      *
-     * @return un arreglo que contiene todos los elementos en esta lista en la
-     * secuencia correcta
+     * @param capacidadInicial la capacidad inicial del vector
+     * @param incrementoCapacidad la cantidad por la cual la capacidad aumenta
+     * cuando el vector se desborda
+     */
+    public ListaVector(int capacidadInicial, int incrementoCapacidad) {
+        this.listadoElementos = new Vector<>(capacidadInicial, incrementoCapacidad);
+    }
+
+    /**
+     * Construye un vector que contiene los elementos de la colección
+     * especificada, en el orden en que el iterador de la colección los
+     * devuelve.
+     *
+     * @param coleccion la colección cuyos elementos deben ser colocados en este
+     * vector
+     */
+    public ListaVector(Collection<? extends E> coleccion) {
+        this.listadoElementos = new Vector<>(coleccion);
+    }
+
+    //Métodos de la clase ListaVector.
+    /**
+     * Devuelve un arreglo que contiene todos los elementos de este Vector en el
+     * orden correcto.
+     *
+     * @return un arreglo que contiene todos los elementos de esta colección
      */
     @Override
     public Object[] aArreglo() {
@@ -48,35 +93,23 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Devuelve un arreglo que contiene todos los elementos de esta lista en la
-     * secuencia correcta (del primer al último elemento); el tipo de tiempo de
-     * ejecución de la arreglo devuelta es el del arreglo especificado. Si la
-     * lista se ajusta al arreglo especificado, se devuelve allí. De lo
-     * contrario, se asigna un nuevo arreglo con el tipo de tiempo de ejecución
-     * del arreglo especificado y el tamaño de esta lista. Si la lista cabe en
-     * el arreglo especificado con espacio de sobra (es decir, el arreglo tiene
-     * más elementos que la lista), el elemento en el arreglo inmediatamente
-     * después del final de la colección se establece en nulo . (Esto es útil
-     * para determinar la longitud de la lista solo si la persona que llama sabe
-     * que la lista no contiene ningún elemento nulo). Al igual que el
-     * aArreglo()método, este método actúa como puente entre las API basadas en
-     * matrices y las basadas en colecciones. Además, este método permite un
-     * control preciso sobre el tipo de tiempo de ejecución del arreglo de
-     * salida y, en determinadas circunstancias, puede utilizarse para ahorrar
-     * costos de asignación.
+     * Devuelve un arreglo que contiene todos los elementos de este Vector en el
+     * orden correcto; el tipo de tiempo de ejecución de la arreglo devuelta es
+     * el del arreglo especificado. Si el Vector encaja en el arreglo
+     * especificado, se devuelve allí. De lo contrario, se asigna un nuevo
+     * arreglo con el tipo de tiempo de ejecución del arreglo especificado y el
+     * tamaño de este Vector. Si el Vector encaja en el arreglo especificado con
+     * espacio de sobra (es decir, el arreglo tiene más elementos que el
+     * Vector), el elemento en el arreglo que sigue inmediatamente al final del
+     * Vector se establece en nulo. (Esto es útil para determinar la longitud
+     * del Vector solo si la persona que llama sabe que el Vector no contiene
+     * ningún elemento nulo).
      *
-     * Supongamos que x se sabe que una lista solo contiene cadenas. El
-     * siguiente código se puede usar para volcar la lista en un arreglo recién
-     * asignado de String:
-     *
-     * String [] y = x.aArreglo (new String [0]); Tenga en cuenta que
-     * aArreglo(new Object[0])es idéntica en función a aArreglo().
-     *
-     * @param <T> el tipo de elementos contenidos en este vector
-     * @param arreglo el arreglo en la que se almacenarán los elementos de la
-     * lista, si es lo suficientemente grande; de lo contrario, se asigna un
-     * nuevo arreglo del mismo tipo de tiempo de ejecución para este fin
-     * @return un arreglo que contiene los elementos de la lista
+     * @param <T> el tipo de elementos contenidos en este arreglo
+     * @param arreglo el arreglo en la que se almacenarán los elementos del
+     * Vector, si es lo suficientemente grande; de lo contrario, se asigna un
+     * nuevo arreglo del mismo tipo de tiempo de ejecución para este fin.
+     * @return un arreglo que contiene los elementos del Vector
      */
     @Override
     public <T> T[] aArreglo(T[] arreglo) {
@@ -84,13 +117,17 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Agrega el elemento especificado al final de esta lista (operación
-     * opcional). Las listas que admiten esta operación pueden imponer
-     * limitaciones a los elementos que se pueden agregar a esta lista. En
-     * particular, algunas listas rechazarán agregar elementos nulos, y otras
-     * impondrán restricciones sobre el tipo de elementos que pueden agregarse.
-     * Las clases de la lista deben especificar claramente en su documentación
-     * cualquier restricción sobre qué elementos se pueden agregar.
+     * Devuelve una representación de cadena de este Vector, que contiene la
+     * representación de Cadena de cada elemento.
+     *
+     * @return una cadena de representación de esta colección
+     */
+    public String aCadena() {
+        return this.listadoElementos.toString();
+    }
+
+    /**
+     * Agrega el elemento especificado al final de este Vector.
      *
      * @param elemento elemento que se adjuntará a esta lista
      * @return verdadero (como se especifica por Collection.add(E))
@@ -101,10 +138,9 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Inserta el elemento especificado en la posición especificada en esta
-     * lista (operación opcional). Cambia el elemento actualmente en esa
-     * posición (si existe) y cualquier elemento posterior a la derecha (agrega
-     * uno a sus índices).
+     * Inserta el elemento especificado en la posición especificada en este
+     * Vector. Cambia el elemento actualmente en esa posición (si existe) y
+     * cualquier elemento posterior a la derecha (agrega uno a sus índices).
      *
      * @param indice índice en el que se debe insertar el elemento especificado
      * @param elemento elemento a insertar
@@ -115,16 +151,28 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Agrega todos los elementos de la colección especificada al final de esta
-     * lista, en el orden en que son devueltos por el iterador de la colección
-     * especificada (operación opcional). El comportamiento de esta operación no
-     * está definido si la colección especificada se modifica mientras la
-     * operación está en progreso. (Tenga en cuenta que esto ocurrirá si la
-     * colección especificada es esta lista y no está vacía).
+     * Agrega el componente especificado al final de este vector, aumentando su
+     * tamaño en uno. La capacidad de este vector aumenta si su tamaño es mayor
+     * que su capacidad. Este método es idéntico en funcionalidad al agregar(E)
+     * método (que es parte de la interfaz Lista).
      *
-     * @param coleccion colección que contiene elementos para agregar a esta
-     * lista
-     * @return verdadero si esta lista cambió como resultado de la llamada
+     * @param objeto el componente que se agregará
+     */
+    public void agregarElemento(E objeto) {
+        this.listadoElementos.addElement(objeto);
+    }
+
+    /**
+     * Agrega todos los elementos en la Colección especificada al final de este
+     * Vector, en el orden en que son devueltos por el Iterador de la Colección
+     * especificada. El comportamiento de esta operación no está definido si la
+     * colección especificada se modifica mientras la operación está en
+     * progreso. (Esto implica que el comportamiento de esta llamada no está
+     * definido si la Colección especificada es este Vector, y este Vector no
+     * está vacío).
+     *
+     * @param coleccion elementos que se insertarán en este Vector
+     * @return verdadero si este Vector cambió como resultado de la llamada
      */
     @Override
     public boolean agregarTodo(Collection<? extends E> coleccion) {
@@ -132,21 +180,16 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Inserta todos los elementos en la colección especificada en esta lista en
-     * la posición especificada (operación opcional). Cambia el elemento
-     * actualmente en esa posición (si existe) y cualquier elemento posterior a
-     * la derecha (aumenta sus índices). Los nuevos elementos aparecerán en esta
-     * lista en el orden en que son devueltos por el iterador de la colección
-     * especificada. El comportamiento de esta operación no está definido si la
-     * colección especificada se modifica mientras la operación está en
-     * progreso. (Tenga en cuenta que esto ocurrirá si la colección especificada
-     * es esta lista y no está vacía).
+     * Inserta todos los elementos en la Colección especificada en este Vector
+     * en la posición especificada. Cambia el elemento actualmente en esa
+     * posición (si existe) y cualquier elemento posterior a la derecha (aumenta
+     * sus índices). Los nuevos elementos aparecerán en el Vector en el orden en
+     * que son devueltos por el iterador de la Colección especificada.
      *
      * @param indice índice en el que insertar el primer elemento de la
      * colección especificada
-     * @param coleccion colección que contiene elementos para agregar a esta
-     * lista
-     * @return verdadero si esta lista cambió como resultado de la llamada
+     * @param coleccion elementos que se insertarán en este Vector
+     * @return verdadero si este Vector cambió como resultado de la llamada
      */
     @Override
     public boolean agregarTodo(int indice, Collection<? extends E> coleccion) {
@@ -154,10 +197,39 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Devuelve una copia superficial de esta Lista. (Los elementos en sí mismos
-     * no están clonados).
+     * Aumenta la capacidad de este vector, si es necesario, para garantizar que
+     * pueda contener al menos el número de componentes especificado por el
+     * argumento de capacidad mínima. Si la capacidad actual de este vector es
+     * menor que capacidadMinima, entonces su capacidad aumenta al reemplazar su
+     * matriz de datos internos, mantenidos en el campo datosElementos, por uno
+     * más grande. El tamaño de la nueva matriz de datos será el tamaño antiguo
+     * más incrementoCapacidad, a menos que el valor de incrementoCapacidad sea
+     * ​​menor o igual a cero, en cuyo caso la nueva capacidad será el doble de
+     * la anterior; pero si este nuevo tamaño es aún más pequeño que
+     * capacidadMinima, entonces la nueva capacidad será capacidadMinima
      *
-     * @return una copia superficial de esta Lista.
+     * @param capacidadMinima la capacidad mínima deseada
+     */
+    public void asegurarCapacidad(int capacidadMinima) {
+        this.listadoElementos.ensureCapacity(capacidadMinima);
+    }
+
+    /**
+     * Devuelve la capacidad actual de este vector.
+     *
+     * @return la capacidad actual (la longitud de su arreglo de datos internos,
+     * mantenido en el campo datosElementos de este vector)
+     */
+    public int capacidad() {
+        return this.listadoElementos.capacity();
+    }
+
+    /**
+     * Devuelve un clon de este vector. La copia contendrá una referencia a un
+     * clon del arreglo de datos interna, no una referencia al vector de datos
+     * internos originales de este objeto vector.
+     *
+     * @return un clon de este vector.
      */
     @Override
     public Object clonar() {
@@ -165,15 +237,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Devuelve el valor del código hash para esta lista. El código hash de una
-     * lista se define como el resultado del siguiente cálculo:
-     *
-     * int codigoHash = 1; for (E e : list) codigoHash = 31* codigoHash +
-     * (e==null ? 0 : e.hashCode());
-     *
-     * Esto asegura que list1.equals (list2) implica que list1.codigoHash () ==
-     * list2.hashCode () para dos listas, list1 y list2 , según lo requerido por
-     * el contrato general de Object.hashCode().
+     * Devuelve el valor del código hash para este Vector.
      *
      * @return el valor del código hash para esta lista
      */
@@ -183,14 +247,24 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Retiene solo los elementos en esta lista que están contenidos en la
-     * colección especificada (operación opcional). En otras palabras, elimina
-     * de esta lista todos sus elementos que no están contenidos en la colección
-     * especificada.
+     * Copia los componentes de este vector en el arreglo especificado. El
+     * elemento en el índice k en este vector se copia en el componente k de
+     * unArreglo.
      *
-     * @param coleccion colección que contiene elementos para ser retenidos en
-     * esta lista
-     * @return verdadero si esta lista cambió como resultado de la llamada
+     * @param unArreglo el arreglo en el que se copian los componentes
+     */
+    public void copiarEn(Object[] unArreglo) {
+        this.listadoElementos.copyInto(unArreglo);
+    }
+
+    /**
+     * Retiene solo los elementos en este Vector que están contenidos en la
+     * Colección especificada. En otras palabras, elimina de este Vector todos
+     * sus elementos que no están contenidos en la Colección especificada.
+     *
+     * @param coleccion una colección de elementos que se conservarán en este
+     * Vector (se eliminan todos los demás elementos)
+     * @return verdadero si este Vector cambió como resultado de la llamada
      */
     @Override
     public boolean conservarTodo(Collection<?> coleccion) {
@@ -198,14 +272,14 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Devuelve verdadero si esta lista contiene el elemento especificado. Más
-     * formalmente, devuelve verdadero si y solo si esta lista contiene al menos
-     * un elemento e tal que (objeto == null? E == null: objeto.equals (e)) .
+     * Devuelve truesi este vector contiene el elemento especificado. Más
+     * formalmente, devuelve verdadero si y solo si este vector contiene al
+     * menos un elemento etal que (objeto == null? E == null: objeto.equals (e))
+     * .
      *
-     * @param objeto elemento cuya presencia en esta lista debe probarse
-     * @return verdadero si esta lista contiene el elemento especificado
+     * @param objeto elemento cuya presencia en este vector debe probarse
+     * @return verdadero si este vector contiene el elemento especificado
      */
-    @Override
     public boolean contiene(Object objeto) {
         return this.listadoElementos.contains(objeto);
     }
@@ -214,9 +288,9 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * Devuelve verdadero si esta lista contiene todos los elementos de la
      * colección especificada.
      *
-     * @param coleccion colección que debe verificarse para contención en esta
-     * lista
-     * @return verdadero si esta lista contiene todos los elementos de la
+     * @param coleccion colección que debe verificarse para contención en este
+     * vector
+     * @return verdadero si este vector contiene todos los elementos de la
      * colección especificada
      */
     @Override
@@ -225,9 +299,32 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Devuelve verdadero si esta lista no contiene elementos.
+     * Devuelve el componente en el índice especificado.
      *
-     * @return verdadero si esta lista no contiene elementos
+     * @param indice un índice en este vector
+     * @return el componente en el índice especificado
+     */
+    public E elementoEn(int indice) {
+        return this.listadoElementos.elementAt(indice);
+    }
+
+    /**
+     * Devuelve una enumeración de los componentes de este vector. El
+     * Enumerationobjeto devuelto generará todos los elementos en este vector.
+     * El primer elemento generado es el ítem en el índice 0, luego el ítem en
+     * el índice 1, y así sucesivamente.
+     *
+     * @return una enumeración de los componentes de este vector
+     */
+    public Enumeration<E> elementos() {
+        return this.listadoElementos.elements();
+    }
+
+    /**
+     * Prueba si este vector no tiene componentes.
+     *
+     * @return verdadero si y solo si este vector no tiene componentes, es
+     * decir, su tamaño es cero; falso de otra manera.
      */
     @Override
     public boolean estaVacia() {
@@ -235,8 +332,8 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Reemplaza el elemento en la posición especificada en esta lista con el
-     * elemento especificado (operación opcional).
+     * Reemplaza el elemento en la posición especificada en este Vector con el
+     * elemento especificado.
      *
      * @param indice índice del elemento a reemplazar
      * @param elemento elemento que se almacenará en la posición especificada
@@ -245,6 +342,54 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     @Override
     public E establecer(int indice, E elemento) {
         return this.listadoElementos.set(indice, elemento);
+    }
+
+    /**
+     * Establece el componente en el especificado indexde este vector para que
+     * sea el objeto especificado. El componente anterior en esa posición se
+     * descarta. El índice debe ser un valor mayor o igual que 0 y menor que el
+     * tamaño actual del vector.
+     *
+     * Este método es idéntico en funcionalidad al set(int, E) método (que es
+     * parte de la interfaz Lista). Tenga en cuenta que el setmétodo invierte el
+     * orden de los parámetros para que coincida más con el uso del arreglo.
+     * Tenga en cuenta también que el método establecer devuelve el valor
+     * anterior que se almacenó en la posición especificada.
+     *
+     * @param objeto en qué se configurará el componente
+     * @param indice el índice especificado
+     */
+    public void establecerElementoEn(E objeto, int indice) {
+        this.listadoElementos.setElementAt(objeto, indice);
+    }
+
+    /**
+     * Establece el tamaño de este vector. Si el nuevo tamaño es mayor que el
+     * tamaño actual, nullse agregarán nuevos elementos al final del vector. Si
+     * el nuevo tamaño es menor que el tamaño actual, todos los componentes del
+     * índice newSizey mayores se descartan.
+     *
+     * @param nuevoTamanio el nuevo tamaño de este vector
+     */
+    public void establecerTamanio(int nuevoTamanio) {
+        this.listadoElementos.setSize(nuevoTamanio);
+    }
+
+    /**
+     * Compara el objeto especificado con este vector para la igualdad. Devuelve
+     * verdadero si y solo si el objeto especificado también es una lista, ambas
+     * listas tienen el mismo tamaño y todos los pares correspondientes de
+     * elementos en las dos listas son iguales . (Dos elementos e1y e2son
+     * iguales si (e1==null ? e2==null : e1.equals(e2))). En otras palabras, dos
+     * listas se definen como iguales si contienen los mismos elementos en el
+     * mismo orden.
+     *
+     * @param objeto El objeto a comparar por igualdad con este Vector
+     * @return verdadero si el Objeto especificado es igual a este Vector
+     */
+    @Override
+    public boolean igual(Object objeto) {
+        return this.listadoElementos.equals(objeto);
     }
 
     /**
@@ -263,31 +408,49 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
+     * Devuelve el índice de la primera aparición del elemento especificado en
+     * este vector, buscando hacia delante desde indice, o devuelve -1 si el
+     * elemento no se encuentra. Más formalmente, devuelve el índice más bajo de
+     * imodo que (i> = índice && (objeto == null? Get (i) == nulo: objeto.equals
+     * (get (i)))) , o -1 si no hay tal índice .
+     *
+     * @param objeto elemento para buscar
+     * @param indice índice para comenzar a buscar desde
+     * @return el índice de la primera aparición del elemento en este vector en
+     * posición indice más tarde en el vector; -1 si el elemento no se encuentra
+     */
+    public int indiceDe(Object objeto, int indice) {
+        return this.listadoElementos.indexOf(objeto, indice);
+    }
+
+    /**
+     * Inserta el objeto especificado como un componente en este vector en el
+     * especificado indice. Cada componente en este vector con un índice mayor o
+     * igual al especificado indice se desplaza hacia arriba para tener un
+     * índice uno mayor que el valor que tenía previamente. El índice debe ser
+     * un valor mayor o igual que, 0 y menor o igual que el tamaño actual del
+     * vector. (Si el índice es igual al tamaño actual del vector, el nuevo
+     * elemento se agrega al Vector).
+     *
+     * Este método es idéntico en funcionalidad al agregar int, E) método (que
+     * es parte de la interfaz Lista). Tenga en cuenta que el método agregar
+     * invierte el orden de los parámetros para que coincida más con el uso del
+     * arreglo.
+     *
+     * @param objeto el componente para insertar
+     * @param indice dónde insertar el nuevo componente
+     */
+    public void insertarElementoEn(E objeto, int indice) {
+        this.listadoElementos.insertElementAt(objeto, indice);
+    }
+
+    /**
      * Devuelve un iterador sobre los elementos en esta lista en la secuencia
      * correcta.
      *
      * @return un iterador sobre los elementos en esta lista en la secuencia
      * correcta
      */
-    /**
-     * Compara el objeto especificado con esta lista para la igualdad. Devuelve
-     * verdadero si y solo si el objeto especificado también es una lista, ambas
-     * listas tienen el mismo tamaño y todos los pares correspondientes de
-     * elementos en las dos listas son iguales . (Dos elementos e1 y e2 son
-     * iguales si (e1 == nulo? E2 == nulo: e1.igual (e2)) .) En otras palabras,
-     * dos listas se definen como iguales si contienen los mismos elementos en
-     * el mismo orden . Esta definición asegura que el método equals funciona
-     * correctamente en diferentes implementaciones de la interfaz de la Lista .
-     *
-     * @param objeto el objeto que se debe comparar para la igualdad con esta
-     * lista
-     * @return verdadero si el objeto especificado es igual a esta lista
-     */
-    @Override
-    public boolean igual(Object objeto) {
-        return this.listadoElementos.equals(objeto);
-    }
-
     /**
      * Devuelve un iterador sobre los elementos en esta lista en la secuencia
      * correcta.
@@ -316,7 +479,7 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * Devuelve un iterador de lista sobre los elementos en esta lista (en la
      * secuencia correcta), comenzando en la posición especificada en la lista.
      * El índice especificado indica el primer elemento que sería devuelto por
-     * una llamada inicial a next. Una llamada inicial previousdevolvería el
+     * una llamada inicial al siguiente. Una llamada inicial previous devolvería el
      * elemento con el índice especificado menos uno.
      *
      * @param indice índice del primer elemento que se devolverá desde el
@@ -343,8 +506,8 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Elimina todos los elementos de esta lista (operación opcional). La lista
-     * estará vacía después de que regrese esta llamada.
+     * Elimina todos los elementos de este Vector. El Vector estará vacío
+     * después de que regrese esta llamada (a menos que arroje una excepción).
      */
     @Override
     public void limpiar() {
@@ -352,10 +515,10 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Devuelve el elemento en la posición especificada en esta lista
+     * Devuelve el elemento en la posición especificada en este Vector.
      *
      * @param indice índice del elemento a devolver
-     * @return el elemento en la posición especificada en esta lista
+     * @return objeto en el índice especificado
      */
     @Override
     public E obtener(int indice) {
@@ -383,6 +546,42 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
+     * Realiza la acción dada para cada elemento de la Iterable hasta que todos
+     * los elementos hayan sido procesados ​​o la acción arroje una excepción. A
+     * menos que la clase de implementación especifique lo contrario, las
+     * acciones se realizan en el orden de iteración (si se especifica una orden
+     * de iteración). Las excepciones lanzadas por la acción se transmiten a la
+     * persona que llama.
+     *
+     * @param accion la acción a realizar para cada elemento
+     */
+    public void paraCada(Consumer<? super E> accion) {
+        this.listadoElementos.forEach(accion);
+    }
+
+    /**
+     * Devuelve el primer componente (el elemento en el índice 0) de este
+     * vector.
+     *
+     * @return el primer componente de este vector
+     */
+    public E primerElemento() {
+        return this.listadoElementos.firstElement();
+    }
+
+    /**
+     * Recorta la capacidad de este vector para ser el tamaño actual del vector.
+     * Si la capacidad de este vector es mayor que su tamaño actual, entonces la
+     * capacidad se cambia para igualar el tamaño reemplazando su matriz de
+     * datos interna, mantenida en el campo elementData, por una más pequeña.
+     * Una aplicación puede usar esta operación para minimizar el almacenamiento
+     * de un vector.
+     */
+    public void recortarATamanio() {
+        this.listadoElementos.trimToSize();
+    }
+
+    /**
      * Reemplaza cada elemento de esta lista con el resultado de aplicar el
      * operador a ese elemento. Los errores o excepciones de tiempo de ejecución
      * lanzados por el operador se transmiten a la persona que llama.
@@ -395,12 +594,12 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Quita el elemento en la posición especificada en esta lista (operación
-     * opcional). Cambia cualquier elemento posterior a la izquierda (resta uno
-     * de sus índices). Devuelve el elemento que se eliminó de la lista.
+     * Quita el elemento en la posición especificada en este Vector. Cambia
+     * cualquier elemento posterior a la izquierda (resta uno de sus índices).
+     * Devuelve el elemento que se eliminó del Vector.
      *
      * @param indice el índice del elemento a eliminar
-     * @return el elemento previamente en la posición especificada
+     * @return elemento que se eliminó
      */
     @Override
     public E remover(int indice) {
@@ -408,16 +607,13 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Elimina la primera aparición del elemento especificado de esta lista, si
-     * está presente (operación opcional). Si esta lista no contiene el
-     * elemento, no se modifica. Más formalmente, elimina el elemento con el
-     * índice más bajo i tal que (object == null? Get (i) == null: object.equals
-     * (get (i))) (si tal elemento existe). Devuelve true si esta lista contiene
-     * el elemento especificado (o de manera equivalente, si esta lista cambió
-     * como resultado de la llamada).
+     * Elimina la primera aparición del elemento especificado en este Vector. Si
+     * el Vector no contiene el elemento, no cambia. Más formalmente, elimina el
+     * elemento con el índice más bajo i tal que (objeto==null ? get(i)==null :
+     * objeto.equals(get(i)))(si tal elemento existe).
      *
-     * @param objeto elemento que se eliminará de esta lista, si está presente
-     * @return verdadero si esta lista contiene el elemento especificado
+     * @param objeto elemento que se eliminará de este Vector, si está presente
+     * @return verdadero si el Vector contenía el elemento especificado
      */
     @Override
     public boolean remover(Object objeto) {
@@ -425,16 +621,71 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Elimina de esta lista todos sus elementos que están contenidos en la
+     * Elimina la primera aparición (más indexada) del argumento de este vector.
+     * Si el objeto se encuentra en este vector, cada componente en el vector
+     * con un índice mayor o igual al índice del objeto se desplaza hacia abajo
+     * para tener un índice uno más pequeño que el valor que tenía previamente.
+     * Este método es idéntico en funcionalidad al remover(Object)método (que es
+     * parte de la interfaz Lista).
+     *
+     * @param objeto el componente que se eliminará
+     * @return verdadero si el argumento era un componente de este vector; falso
+     * de otra manera.
+     */
+    public boolean removerElemento(Object objeto) {
+        return this.listadoElementos.removeElement(objeto);
+    }
+
+    /**
+     * Elimina el componente en el índice especificado. Cada componente en este
+     * vector con un índice mayor o igual al especificado indexse desplaza hacia
+     * abajo para tener un índice uno más pequeño que el valor que tenía
+     * previamente. El tamaño de este vector se reduce en 1. El índice debe ser
+     * un valor mayor o igual que 0 y menor que el tamaño actual del vector.
+     *
+     * Este método es idéntico en funcionalidad al remove(int) método (que es
+     * parte de la interfaz Lista). Tenga en cuenta que el removemétodo devuelve
+     * el valor anterior que se almacenó en la posición especificada.
+     *
+     * @param indice el índice del objeto para eliminar
+     */
+    public void removerElementoEn(int indice) {
+        this.listadoElementos.removeElementAt(indice);
+    }
+
+    /**
+     * Elimina todos los elementos de esta colección que satisfacen el predicado
+     * dado. Los errores o las excepciones de tiempo de ejecución lanzadas
+     * durante la iteración o por el predicado se transmiten a la persona que
+     * llama.
+     *
+     * @param filtro un predicado que devuelve trueelementos que se eliminarán
+     * @return verdadero si se eliminó algún elemento
+     */
+    public boolean removerSi(Predicate<? super E> filtro) {
+        return this.listadoElementos.removeIf(filtro);
+    }
+
+    /**
+     * Elimina de este vector todos sus elementos que están contenidos en la
      * colección especificada (operación opcional).
      *
-     * @param coleccion colección que contiene elementos para eliminar de esta
-     * lista
-     * @return verdadero si esta lista cambió como resultado de la llamada
+     * @param coleccion colección que contiene elementos para eliminar de este
+     * vector
+     * @return verdadero si este vector cambió como resultado de la llamada
      */
     @Override
     public boolean removerTodo(Collection<?> coleccion) {
         return this.listadoElementos.removeAll(coleccion);
+    }
+
+    /**
+     * Elimina todos los componentes de este vector y establece su tamaño en
+     * cero. Este método es idéntico en funcionalidad al limpiar() método (que
+     * es parte de la interfaz Lista).
+     */
+    public void removerTodosLosElementos() {
+        this.listadoElementos.removeAllElements();
     }
 
     /**
@@ -472,14 +723,23 @@ public class ListaVector<E> implements Lista<E>, Serializable {
     }
 
     /**
-     * Devuelve la cantidad de elementos en esta lista. Si esta lista contiene
-     * más de elementos Integer.MAX_VALUE , devuelve Integer.MAX_VALUE .
+     * Devuelve la cantidad de componentes en este vector.
      *
-     * @return la cantidad de elementos en esta lista
+     * @return la cantidad de componentes en este vector
      */
     @Override
     public int tamanio() {
         return this.listadoElementos.size();
+    }
+
+    /**
+     * Devuelve el último componente del vector.
+     *
+     * @return el último componente del vector, es decir, el componente en el
+     * índice tamanio() - 1.
+     */
+    public E ultimoElemento() {
+        return this.listadoElementos.lastElement();
     }
 
     /**
@@ -488,12 +748,28 @@ public class ListaVector<E> implements Lista<E>, Serializable {
      * devuelve el índice más alto i tal que (objeto == null? Get (i) == null:
      * objeto.equals (get (i))) , o -1 si no hay tal índice.
      *
-     * @param objeto
-     * @return
+     * @param objeto elemento para buscar
+     * @return el índice de la última aparición del elemento especificado en
+     * este vector, o -1 si este vector no contiene el elemento
      */
     @Override
     public int ultimoIndiceDe(Object objeto) {
         return this.listadoElementos.lastIndexOf(objeto);
+    }
+
+    /**
+     * Devuelve el índice de la última aparición del elemento especificado en
+     * este vector, buscando hacia atrás desde indice, o devuelve -1 si el
+     * elemento no se encuentra. Más formalmente, devuelve el índice más alto de
+     * imodo que (i <= índice && (objeto == null? Get (i) == nulo: objeto.equals
+     * (get (i)))) , o -1 si no hay dicho índice.
+     *
+     * @param objeto elemento para buscar
+     * @param indice índice para comenzar a buscar hacia atrás desde
+     * @return
+     */
+    public int ultimoIndiceDe(Object objeto, int indice) {
+        return this.listadoElementos.lastIndexOf(objeto, indice);
     }
 
 }

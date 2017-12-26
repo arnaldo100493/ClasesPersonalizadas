@@ -28,11 +28,11 @@ import java.util.function.UnaryOperator;
  */
 public class ListaEnlazada<E> implements Lista<E>, Serializable {
 
-    //Atributos de la clase ListaEnlazada
+    //Atributos de la clase ListaEnlazada.
     private static final long serialVersionUID = 7579611673568763301L;
 
     /**
-     * Listado de elementos en una listaEnlazada.
+     * Listado de elementos en una lista enlazada.
      */
     private final LinkedList<E> listadoElementos;
 
