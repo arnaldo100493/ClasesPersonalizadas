@@ -205,6 +205,22 @@ public interface Lista<E> {
     public E establecer(int indice, E elemento);
 
     /**
+     * Compara el objeto especificado con esta lista para la igualdad. Devuelve
+     * verdadero si y solo si el objeto especificado también es una lista, ambas
+     * listas tienen el mismo tamaño y todos los pares correspondientes de
+     * elementos en las dos listas son iguales . (Dos elementos e1 y e2 son
+     * iguales si (e1 == nulo? E2 == nulo: e1.igual (e2)) .) En otras palabras,
+     * dos listas se definen como iguales si contienen los mismos elementos en
+     * el mismo orden . Esta definición asegura que el método equals funciona
+     * correctamente en diferentes implementaciones de la interfaz de la Lista .
+     *
+     * @param objeto el objeto que se debe comparar para la igualdad con esta
+     * lista
+     * @return verdadero si el objeto especificado es igual a esta lista
+     */
+    public boolean igual(Object objeto);
+
+    /**
      * Devuelve el índice de la primera aparición del elemento especificado en
      * esta lista, o -1 si esta lista no contiene el elemento. Más formalmente,
      * devuelve el índice más bajo i tal que (objeto == null? Get (i) == null:
@@ -223,22 +239,6 @@ public interface Lista<E> {
      * @return un iterador sobre los elementos en esta lista en la secuencia
      * correcta
      */
-    /**
-     * Compara el objeto especificado con esta lista para la igualdad. Devuelve
-     * verdadero si y solo si el objeto especificado también es una lista, ambas
-     * listas tienen el mismo tamaño y todos los pares correspondientes de
-     * elementos en las dos listas son iguales . (Dos elementos e1 y e2 son
-     * iguales si (e1 == nulo? E2 == nulo: e1.igual (e2)) .) En otras palabras,
-     * dos listas se definen como iguales si contienen los mismos elementos en
-     * el mismo orden . Esta definición asegura que el método equals funciona
-     * correctamente en diferentes implementaciones de la interfaz de la Lista .
-     *
-     * @param objeto el objeto que se debe comparar para la igualdad con esta
-     * lista
-     * @return verdadero si el objeto especificado es igual a esta lista
-     */
-    public boolean igual(Object objeto);
-
     /**
      * Devuelve un iterador sobre los elementos en esta lista en la secuencia
      * correcta.
