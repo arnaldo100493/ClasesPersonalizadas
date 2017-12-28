@@ -12,7 +12,6 @@ import java.io.InputStreamReader;
  *
  * @author FABAME
  */
-
 //Clase para leer variables desde el teclado.
 public abstract class LeerVariable {
 
