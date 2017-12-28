@@ -401,7 +401,8 @@ public interface Lista<E> {
      * objeto.equals (get (i))) , o -1 si no hay tal índice.
      *
      * @param objeto elemento para buscar
-     * @return el índice de la última aparición del elemento especificado en esta lista, o -1 si esta lista no contiene el elemento
+     * @return el índice de la última aparición del elemento especificado en
+     * esta lista, o -1 si esta lista no contiene el elemento
      */
     public int ultimoIndiceDe(Object objeto);
 
