@@ -22,7 +22,7 @@ import java.util.function.UnaryOperator;
  *
  * @param <E> el tipo de elementos contenidos en esta colección
  */
-public interface Lista<E> {
+public interface Lista<E> extends Coleccion<E>{
 
     //Métodos de la interfaz Lista
     /**
@@ -38,6 +38,7 @@ public interface Lista<E> {
      * @return un arreglo que contiene todos los elementos en esta lista en la
      * secuencia correcta
      */
+    @Override
     public Object[] aArreglo();
 
     /**
@@ -71,6 +72,7 @@ public interface Lista<E> {
      * nuevo arreglo del mismo tipo de tiempo de ejecución para este fin
      * @return un arreglo que contiene los elementos de la lista
      */
+    @Override
     public <T> T[] aArreglo(T[] arreglo);
 
     /**
@@ -85,6 +87,7 @@ public interface Lista<E> {
      * @param elemento elemento que se adjuntará a esta lista
      * @return verdadero (como se especifica por Collection.add(E))
      */
+    @Override
     public boolean agregar(E elemento);
 
     /**
@@ -110,6 +113,7 @@ public interface Lista<E> {
      * lista
      * @return verdadero si esta lista cambió como resultado de la llamada
      */
+    @Override
     public boolean agregarTodo(Collection<? extends E> coleccion);
 
     /**
@@ -152,6 +156,7 @@ public interface Lista<E> {
      *
      * @return el valor del código hash para esta lista
      */
+    @Override
     public int codigoHash();
 
     /**
@@ -164,6 +169,7 @@ public interface Lista<E> {
      * esta lista
      * @return verdadero si esta lista cambió como resultado de la llamada
      */
+    @Override
     public boolean conservarTodo(Collection<?> coleccion);
 
     /**
@@ -174,6 +180,7 @@ public interface Lista<E> {
      * @param objeto elemento cuya presencia en esta lista debe probarse
      * @return verdadero si esta lista contiene el elemento especificado
      */
+    @Override
     public boolean contiene(Object objeto);
 
     /**
@@ -185,6 +192,7 @@ public interface Lista<E> {
      * @return verdadero si esta lista contiene todos los elementos de la
      * colección especificada
      */
+    @Override
     public boolean contieneTodo(Collection<?> coleccion);
 
     /**
@@ -192,6 +200,7 @@ public interface Lista<E> {
      *
      * @return verdadero si esta lista no contiene elementos
      */
+    @Override
     public boolean estaVacia();
 
     /**
@@ -218,6 +227,7 @@ public interface Lista<E> {
      * lista
      * @return verdadero si el objeto especificado es igual a esta lista
      */
+    @Override
     public boolean igual(Object objeto);
 
     /**
@@ -246,6 +256,7 @@ public interface Lista<E> {
      * @return un iterador sobre los elementos en esta lista en la secuencia
      * correcta
      */
+    @Override
     public Iterator<E> iterador();
 
     /**
@@ -285,6 +296,7 @@ public interface Lista<E> {
      * Elimina todos los elementos de esta lista (operación opcional). La lista
      * estará vacía después de que regrese esta llamada.
      */
+    @Override
     public void limpiar();
 
     /**
@@ -343,6 +355,7 @@ public interface Lista<E> {
      * @param objeto elemento que se eliminará de esta lista, si está presente
      * @return verdadero si esta lista contiene el elemento especificado
      */
+    @Override
     public boolean remover(Object objeto);
 
     /**
@@ -353,6 +366,7 @@ public interface Lista<E> {
      * lista
      * @return verdadero si esta lista cambió como resultado de la llamada
      */
+    @Override
     public boolean removerTodo(Collection<?> coleccion);
 
     /**
@@ -392,6 +406,7 @@ public interface Lista<E> {
      *
      * @return la cantidad de elementos en esta lista
      */
+    @Override
     public int tamanio();
 
     /**
@@ -405,5 +420,5 @@ public interface Lista<E> {
      * esta lista, o -1 si esta lista no contiene el elemento
      */
     public int ultimoIndiceDe(Object objeto);
-
+    
 }
