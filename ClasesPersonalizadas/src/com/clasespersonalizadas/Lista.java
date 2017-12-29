@@ -22,7 +22,7 @@ import java.util.function.UnaryOperator;
  *
  * @param <E> el tipo de elementos contenidos en esta colección
  */
-public interface Lista<E> extends Coleccion<E>{
+public interface Lista<E> extends Coleccion<E> {
 
     //Métodos de la interfaz Lista
     /**
@@ -420,5 +420,5 @@ public interface Lista<E> extends Coleccion<E>{
      * esta lista, o -1 si esta lista no contiene el elemento
      */
     public int ultimoIndiceDe(Object objeto);
-    
+
 }
