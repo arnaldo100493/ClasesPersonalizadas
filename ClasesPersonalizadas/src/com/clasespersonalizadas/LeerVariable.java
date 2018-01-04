@@ -2,6 +2,7 @@ package com.clasespersonalizadas;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -119,6 +120,16 @@ public abstract class LeerVariable {
             System.out.println("Error: " + ex.getMessage());
         }
         return objeto;
+    }
+
+    //Método para leer objetos con JOptionPane con un mensaje
+    public static String leerObjetoConJOptionPane(Object mensaje) {
+        return JOptionPane.showInputDialog(null, mensaje);
+    }
+
+    //Método para leer objetos con JOptionPane con un mensaje y
+    public static String leerObjetoConJOptionPane(Object mensaje, String titulo, int tipoMensaje) {
+        return JOptionPane.showInputDialog(null, mensaje, titulo, tipoMensaje);
     }
 
     //Método para leer cadenas de texto con String
