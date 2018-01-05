@@ -173,10 +173,10 @@ public class ListaArreglo<E> implements Lista<E>, Serializable {
      * para garantizar que pueda contener al menos la cantidad de elementos
      * especificada por el argumento de capacidad mínima.
      *
-     * @param capacidadMinicma la capacidad mínima deseada
+     * @param capacidadMinima la capacidad mínima deseada
      */
-    public void asegurarCapacidad(int capacidadMinicma) {
-        this.listadoElementos.ensureCapacity(capacidadMinicma);
+    public void asegurarCapacidad(int capacidadMinima) {
+        this.listadoElementos.ensureCapacity(capacidadMinima);
     }
 
     /**
